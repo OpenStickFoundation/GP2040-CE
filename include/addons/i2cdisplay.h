@@ -53,6 +53,10 @@
 #define DISPLAY_USEWIRE 1
 #endif
 
+#ifndef DISPLAY_SH1106
+#define DISPLAY_SH1106 0
+#endif
+
 // i2c Display Module
 #define I2CDisplayName "I2CDisplay"
 

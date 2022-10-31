@@ -17,6 +17,9 @@ bool I2CDisplayAddon::available() {
 
 void I2CDisplayAddon::setup() {
 	BoardOptions boardOptions = Storage::getInstance().getBoardOptions();
+    if (boardOptions.displaySh1106 == true) {
+        boardOptions.displaySize = OLED_132x64;
+    }
 	obdI2CInit(&obd,
 	    boardOptions.displaySize,
 		boardOptions.displayI2CAddress,
