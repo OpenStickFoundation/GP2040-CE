@@ -534,6 +534,7 @@ void I2CDisplayAddon::drawStatusBar(Gamepad * gamepad)
 		case INPUT_MODE_HID:    statusBar += "DINPUT"; break;
 		case INPUT_MODE_SWITCH: statusBar += "SWITCH"; break;
 		case INPUT_MODE_XINPUT: statusBar += "XINPUT"; break;
+		case INPUT_MODE_MDMINI: statusBar += "MDMINI"; break;
 		case INPUT_MODE_CONFIG: statusBar += "CONFIG"; break;
 	}
 

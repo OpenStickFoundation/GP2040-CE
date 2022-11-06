@@ -52,6 +52,8 @@ void GP2040::setup() {
 			inputMode = INPUT_MODE_SWITCH;
 		else if (gamepad->pressedB2())                  // HOLD B2 - X-INPUT
 			inputMode = INPUT_MODE_XINPUT;
+		else if (gamepad->pressedB4())                  // HOLD B4 - MD-MINI
+			inputMode = INPUT_MODE_MDMINI;
 		if (inputMode != gamepad->options.inputMode ) { // Save changes
 			gamepad->options.inputMode = inputMode;
 			gamepad->save();

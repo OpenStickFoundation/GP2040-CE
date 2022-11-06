@@ -108,11 +108,17 @@ uint16_t tud_hid_get_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t
 	uint8_t report_size = 0;
 	SwitchReport switch_report;
 	HIDReport hid_report;
+	MdminiReport mdmini_report;
 	switch (input_mode)
 	{
 		case INPUT_MODE_SWITCH:
 			report_size = sizeof(SwitchReport);
 			memcpy(buffer, &switch_report, report_size);
+			break;
+
+		case INPUT_MODE_MDMINI:
+			report_size = sizeof(MdminiReport);
+			memcpy(buffer, &mdmini_report, report_size);
 			break;
 
 		default:
