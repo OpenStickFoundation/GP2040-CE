@@ -20,6 +20,7 @@
 #include "addons/playerleds.h"
 #include "addons/i2canalog1219.h"
 #include "addons/turbo.h"
+#include "addons/directleds.h"
 
 #include "bitmaps.h"
 
@@ -100,6 +101,18 @@ void Storage::setDefaultBoardOptions()
 	boardOptions.i2cAnalog1219Block      = (I2C_ANALOG1219_BLOCK == i2c0) ? 0 : 1;
 	boardOptions.i2cAnalog1219Speed      = I2C_ANALOG1219_SPEED;
 	boardOptions.i2cAnalog1219Address    = I2C_ANALOG1219_ADDRESS;
+	boardOptions.directLed1Pin           = DIRECTLED1_PIN;
+	boardOptions.directLed1Button        = DIRECTLED1_BUTTON;
+	boardOptions.directLed1Dpad          = DIRECTLED1_DPAD;
+	boardOptions.directLed2Pin           = DIRECTLED2_PIN;
+	boardOptions.directLed2Button        = DIRECTLED2_BUTTON;
+	boardOptions.directLed2Dpad          = DIRECTLED2_DPAD;
+	boardOptions.directLed3Pin           = DIRECTLED3_PIN;
+	boardOptions.directLed3Button        = DIRECTLED3_BUTTON;
+	boardOptions.directLed3Dpad          = DIRECTLED3_DPAD;
+	boardOptions.directLed4Pin           = DIRECTLED4_PIN;
+	boardOptions.directLed4Button        = DIRECTLED4_BUTTON;
+	boardOptions.directLed4Dpad          = DIRECTLED4_DPAD;
 	strncpy(boardOptions.boardVersion, GP2040VERSION, strlen(GP2040VERSION));
 	setBoardOptions(boardOptions);
 }

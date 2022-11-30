@@ -452,6 +452,18 @@ std::string setAddonOptions()
 	boardOptions.i2cAnalog1219Block = doc["i2cAnalog1219Block"];
 	boardOptions.i2cAnalog1219Speed = doc["i2cAnalog1219Speed"];
 	boardOptions.i2cAnalog1219Address = doc["i2cAnalog1219Address"];
+	boardOptions.directLed1Pin        = doc["directLed1Pin"] == -1 ? 0xFF : doc["directLed1Pin"];
+	boardOptions.directLed1Button     = doc["directLed1Button"];
+	boardOptions.directLed1Dpad       = doc["directLed1Dpad"];
+	boardOptions.directLed2Pin        = doc["directLed2Pin"] == -1 ? 0xFF : doc["directLed2Pin"];
+	boardOptions.directLed2Button     = doc["directLed2Button"];
+	boardOptions.directLed2Dpad       = doc["directLed2Dpad"];
+	boardOptions.directLed3Pin        = doc["directLed3Pin"] == -1 ? 0xFF : doc["directLed3Pin"];
+	boardOptions.directLed3Button     = doc["directLed3Button"];
+	boardOptions.directLed3Dpad       = doc["directLed3Dpad"];
+	boardOptions.directLed4Pin        = doc["directLed4Pin"] == -1 ? 0xFF : doc["directLed4Pin"];
+	boardOptions.directLed4Button     = doc["directLed4Button"];
+	boardOptions.directLed4Dpad       = doc["directLed4Dpad"];
 	Storage::getInstance().setBoardOptions(boardOptions);
 
 	return serialize_json(doc);
@@ -477,6 +489,18 @@ std::string getAddonOptions()
 	doc["i2cAnalog1219Block"] = boardOptions.i2cAnalog1219Block;
 	doc["i2cAnalog1219Speed"] = boardOptions.i2cAnalog1219Speed;
 	doc["i2cAnalog1219Address"] = boardOptions.i2cAnalog1219Address;
+	doc["directLed1Pin"]    = boardOptions.directLed1Pin == 0xFF ? -1 : boardOptions.directLed1Pin;
+	doc["directLed1Button"] = boardOptions.directLed1Button;
+	doc["directLed1Dpad"]   = boardOptions.directLed1Dpad;
+	doc["directLed2Pin"]    = boardOptions.directLed2Pin == 0xFF ? -1 : boardOptions.directLed2Pin;
+	doc["directLed2Button"] = boardOptions.directLed2Button;
+	doc["directLed2Dpad"]   = boardOptions.directLed2Dpad;
+	doc["directLed3Pin"]    = boardOptions.directLed3Pin == 0xFF ? -1 : boardOptions.directLed3Pin;
+	doc["directLed3Button"] = boardOptions.directLed3Button;
+	doc["directLed3Dpad"]   = boardOptions.directLed3Dpad;
+	doc["directLed4Pin"]    = boardOptions.directLed4Pin == 0xFF ? -1 : boardOptions.directLed4Pin;
+	doc["directLed4Button"] = boardOptions.directLed4Button;
+	doc["directLed4Dpad"]   = boardOptions.directLed4Dpad;
 
 	Gamepad * gamepad = Storage::getInstance().GetGamepad();
 	auto usedPins = doc.createNestedArray("usedPins");

@@ -12,6 +12,33 @@ const I2C_BLOCKS = [
 	{ label: 'i2c1', value: 1 },
 ];
 
+
+const BUTTON_MAP = [
+	{ label: '<none>', value: 0 },
+	{ label: 'B1', value: 1 << 0 },
+	{ label: 'B2', value: 1 << 1 },
+	{ label: 'B3', value: 1 << 2 },
+	{ label: 'B4', value: 1 << 3 },
+	{ label: 'L1', value: 1 << 4 },
+	{ label: 'R1', value: 1 << 5 },
+	{ label: 'L2', value: 1 << 6 },
+	{ label: 'R2', value: 1 << 7 },
+	{ label: 'S1', value: 1 << 8 },
+	{ label: 'S2', value: 1 << 9 },
+	{ label: 'L3', value: 1 << 10 },
+	{ label: 'R3', value: 1 << 11 },
+	{ label: 'A1', value: 1 << 12 },
+	{ label: 'A2', value: 1 << 13 },
+];
+
+const DPAD_MAP = [
+	{ label: '<none>', value: 0 },
+	{ label: 'Up', value: 1 << 0 },
+	{ label: 'Down', value: 1 << 1 },
+	{ label: 'Left', value: 1 << 2 },
+	{ label: 'Right', value: 1 << 3 },
+]
+
 const schema = yup.object().shape({
 	turboPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin'),
 	turboPinLED: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Turbo Pin LED'),
@@ -25,6 +52,18 @@ const schema = yup.object().shape({
 	i2cAnalog1219Block: yup.number().required().oneOf(I2C_BLOCKS.map(o => o.value)).label('I2C Analog1219 Block'),
 	i2cAnalog1219Speed: yup.number().required().label('I2C Analog1219 Speed'),
 	i2cAnalog1219Address: yup.number().required().label('I2C Analog1219 Address'),
+	directLed1Pin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Direct LED Pin #1'),
+	directLed2Pin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Direct LED Pin #2'),
+	directLed3Pin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Direct LED Pin #3'),
+	directLed4Pin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Direct LED Pin #4'),
+	directLed1Button: yup.number().required().oneOf(BUTTON_MAP.map(o => o.value)).label('Direct LED #1 Button'),
+	directLed2Button: yup.number().required().oneOf(BUTTON_MAP.map(o => o.value)).label('Direct LED #2 Button'),
+	directLed3Button: yup.number().required().oneOf(BUTTON_MAP.map(o => o.value)).label('Direct LED #3 Button'),
+	directLed4Button: yup.number().required().oneOf(BUTTON_MAP.map(o => o.value)).label('Direct LED #4 Button'),
+	directLed1Dpad: yup.number().required().oneOf(DPAD_MAP.map(o => o.value)).label('Direct LED #1 Dpad'),
+	directLed2Dpad: yup.number().required().oneOf(DPAD_MAP.map(o => o.value)).label('Direct LED #2 Dpad'),
+	directLed3Dpad: yup.number().required().oneOf(DPAD_MAP.map(o => o.value)).label('Direct LED #3 Dpad'),
+	directLed4Dpad: yup.number().required().oneOf(DPAD_MAP.map(o => o.value)).label('Direct LED #4 Dpad'),
 });
 
 const defaultValues = {
@@ -40,6 +79,18 @@ const defaultValues = {
 	i2cAnalog1219Block: 0,
 	i2cAnalog1219Speed: 400000,
 	i2cAnalog1219Address: 0x40,
+	directLed1Pin: -1,
+	directLed2Pin: -1,
+	directLed3Pin: -1,
+	directLed4Pin: -1,
+	directLed1Button: 0,
+	directLed2Button: 0,
+	directLed3Button: 0,
+	directLed4Button: 0,
+	directLed1Dpad: 0,
+	directLed2Dpad: 0,
+	directLed3Dpad: 0,
+	directLed4Dpad: 0,
 };
 
 const REVERSE_ACTION = [
@@ -95,6 +146,32 @@ const FormContext = () => {
 			values.i2cAnalog1219Speed = parseInt(values.i2cAnalog1219Speed);
 		if (!!values.i2cAnalog1219Address)
 			values.i2cAnalog1219Address = parseInt(values.i2cAnalog1219Address);
+		if (!!values.directLed1Pin)
+			values.directLed1Pin = parseInt(values.directLed1Pin);
+		if (!!values.directLed2Pin)
+			values.directLed2Pin = parseInt(values.directLed2Pin);
+		if (!!values.directLed3Pin)
+			values.directLed3Pin = parseInt(values.directLed3Pin);
+		if (!!values.directLed4Pin)
+			values.directLed4Pin = parseInt(values.directLed4Pin);
+		if (!!values.directLed1Button)
+			values.directLed1Button = parseInt(values.directLed1Button);
+		if (!!values.directLed2Button)
+			values.directLed2Button = parseInt(values.directLed2Button);
+		if (!!values.directLed3Button)
+			values.directLed3Button = parseInt(values.directLed3Button);
+		if (!!values.directLed4Button)
+			values.directLed4Button = parseInt(values.directLed4Button);
+		if (!!values.directLed1Dpad)
+			values.directLed1Dpad = parseInt(values.directLed1Dpad);
+		if (!!values.directLed2Dpad)
+			values.directLed2Dpad = parseInt(values.directLed2Dpad);
+		if (!!values.directLed3Dpad)
+			values.directLed3Dpad = parseInt(values.directLed3Dpad);
+		if (!!values.directLed4Dpad)
+			values.directLed4Dpad = parseInt(values.directLed4Dpad);
+
+
 	}, [values, setValues]);
 
 	return null;
@@ -109,7 +186,7 @@ export default function AddonsConfigPage() {
 	};
 
 	return (
-	<Formik validationSchema={schema} onSubmit={onSuccess} initialValues={defaultValues}>
+		<Formik validationSchema={schema} onSubmit={onSuccess} initialValues={defaultValues}>
 			{({
 				handleSubmit,
 				handleChange,
@@ -327,6 +404,154 @@ export default function AddonsConfigPage() {
 								onChange={handleChange}
 								maxLength={4}
 							/>
+						</Col>
+					</Section>
+					<Section title="Direct LEDs">
+						<Col>
+							<FormControl type="number"
+								label="Direct LED #1 Pin"
+								name="directLed1Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed1Pin}
+								error={errors.directLed1Pin}
+								isInvalid={errors.directLed1Pin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormSelect
+								label="Direct LED #1 Button"
+								name="directLed1Button"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed1Button}
+								error={errors.directLed1Button}
+								isInvalid={errors.directLed1Button}
+								onChange={handleChange}
+							>
+								{BUTTON_MAP.map((o, i) => <option key={`direct-led-button-1-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
+							<FormSelect
+								label="Direct LED #1 DPad"
+								name="directLed1Dpad"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed1Dpad}
+								error={errors.directLed1Dpad}
+								isInvalid={errors.directLed1Dpad}
+								onChange={handleChange}
+							>
+								{DPAD_MAP.map((o, i) => <option key={`direct-led-dpad-1-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
+							<FormControl type="number"
+								label="Direct LED #2 Pin"
+								name="directLed2Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed2Pin}
+								error={errors.directLed2Pin}
+								isInvalid={errors.directLed2Pin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormSelect
+								label="Direct LED #2 Button"
+								name="directLed2Button"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed2Button}
+								error={errors.directLed2Button}
+								isInvalid={errors.directLed2Button}
+								onChange={handleChange}
+							>
+								{BUTTON_MAP.map((o, i) => <option key={`direct-led-button-2-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
+							<FormSelect
+								label="Direct LED #2 DPad"
+								name="directLed2Dpad"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed2Dpad}
+								error={errors.directLed2Dpad}
+								isInvalid={errors.directLed2Dpad}
+								onChange={handleChange}
+							>
+								{DPAD_MAP.map((o, i) => <option key={`direct-led-dpad-2-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
+							<FormControl type="number"
+								label="Direct LED #3 Pin"
+								name="directLed3Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed3Pin}
+								error={errors.directLed3Pin}
+								isInvalid={errors.directLed3Pin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormSelect
+								label="Direct LED #3 Button"
+								name="directLed3Button"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed3Button}
+								error={errors.directLed3Button}
+								isInvalid={errors.directLed3Button}
+								onChange={handleChange}
+							>
+								{BUTTON_MAP.map((o, i) => <option key={`direct-led-button-3-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
+							<FormSelect
+								label="Direct LED #3 DPad"
+								name="directLed3Dpad"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed3Dpad}
+								error={errors.directLed3Dpad}
+								isInvalid={errors.directLed3Dpad}
+								onChange={handleChange}
+							>
+								{DPAD_MAP.map((o, i) => <option key={`direct-led-dpad-3-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
+							<FormControl type="number"
+								label="Direct LED #4 Pin"
+								name="directLed4Pin"
+								className="form-control-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed4Pin}
+								error={errors.directLed4Pin}
+								isInvalid={errors.directLed4Pin}
+								onChange={handleChange}
+								min={-1}
+								max={29}
+							/>
+							<FormSelect
+								label="Direct LED #4 Button"
+								name="directLed4Button"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed4Button}
+								error={errors.directLed4Button}
+								isInvalid={errors.directLed4Button}
+								onChange={handleChange}
+							>
+								{BUTTON_MAP.map((o, i) => <option key={`direct-led-button-4-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
+							<FormSelect
+								label="Direct LED #4 DPad"
+								name="directLed4Dpad"
+								className="form-select-sm"
+								groupClassName="col-sm-3 mb-3"
+								value={values.directLed4Dpad}
+								error={errors.directLed4Dpad}
+								isInvalid={errors.directLed4Dpad}
+								onChange={handleChange}
+							>
+								{DPAD_MAP.map((o, i) => <option key={`direct-led-dpad-4-option-${i}`} value={o.value}>{o.label}</option>)}
+							</FormSelect>
 						</Col>
 					</Section>
 					<div className="mt-3">

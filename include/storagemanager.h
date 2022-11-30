@@ -72,6 +72,18 @@ struct BoardOptions
 	int i2cAnalog1219Block;
 	uint32_t i2cAnalog1219Speed;
 	uint8_t i2cAnalog1219Address;
+	uint8_t directLed1Pin;
+	uint8_t directLed2Pin;
+	uint8_t directLed3Pin;
+	uint8_t directLed4Pin;
+	uint16_t directLed1Button;
+	uint16_t directLed2Button;
+	uint16_t directLed3Button;
+	uint16_t directLed4Button;
+	uint8_t directLed1Dpad;
+	uint8_t directLed2Dpad;
+	uint8_t directLed3Dpad;
+	uint8_t directLed4Dpad;
 	char boardVersion[32]; // 32-char limit to board name
 	uint32_t checksum;
 };

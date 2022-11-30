@@ -112,12 +112,17 @@
 // 2 - `PLED_TYPE_PWM` - This will enable the Player LEDs ( it is recommended to run through 3V3(OUT) with a resistor)
 // 3 - `PLED_TYPE_RGB` - This will enable the Player LEDs as addressible RGB LEDs (please not that this has not been implemented yet)
 
-#define PLED_TYPE PLED_TYPE_PWM
-#define PLED1_PIN 16
-#define PLED2_PIN 17
-#define PLED3_PIN 18
-#define PLED4_PIN 19
+#define PLED_TYPE PLED_TYPE_NONE
+#define PLED1_PIN -1
+#define PLED2_PIN -1
+#define PLED3_PIN -1
+#define PLED4_PIN -1
 
+#define DIRECTLED_TYPE DIRECTLED_TYPE_DIRECT
+#define DIRECTLED1_PIN 19
+#define DIRECTLED2_PIN 17
+#define DIRECTLED1_BUTTON GAMEPAD_MASK_L1
+#define DIRECTLED2_BUTTON GAMEPAD_MASK_R1
 
 // This is the Analog section.
 // In this section you can specify if Analog is enabled, and, if endabled, which pins will be used for it.

@@ -149,6 +149,18 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		i2cAnalog1219Block: 0,
 		i2cAnalog1219Speed: 400000,
 		i2cAnalog1219Address: 0x40,
+		directLed1Pin: -1,
+		directLed1Button: 0,
+		directLed1Dpad: 0,
+		directLed2Pin: -1,
+		directLed2Button: 0,
+		directLed2Dpad: 0,
+		directLed3Pin: -1,
+		directLed3Button: 0,
+		directLed3Dpad: 0,
+		directLed4Pin: -1,
+		directLed4Button: 0,
+		directLed4Dpad: 0,
 		usedPins,
 	});
 });
