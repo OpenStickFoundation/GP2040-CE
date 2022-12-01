@@ -72,6 +72,11 @@ struct BoardOptions
 	int i2cAnalog1219Block;
 	uint32_t i2cAnalog1219Speed;
 	uint8_t i2cAnalog1219Address;
+	uint8_t pinDualDirUp;    // Pins for Dual Directional Input
+	uint8_t pinDualDirDown;
+	uint8_t pinDualDirLeft;
+	uint8_t pinDualDirRight;
+	uint8_t dualDirectionalMode; // LS/DP/RS
 	char boardVersion[32]; // 32-char limit to board name
 	uint32_t checksum;
 };

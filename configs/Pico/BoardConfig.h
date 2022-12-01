@@ -40,7 +40,6 @@
 #define PIN_SLIDER_LS    -1         // Left Stick Slider
 #define PIN_SLIDER_RS    -1         // Right Stick Slider
 
-
 // This is the SOCD section.
 // SOCD stands for `simultaneous opposing cardinal directions`.
 // There are three options for `DEFAULT_SOCD_MODE` currently:
@@ -188,6 +187,13 @@
 #define REVERSE_DOWN_DEFAULT 1
 #define REVERSE_LEFT_DEFAULT 1
 #define REVERSE_RIGHT_DEFAULT 1
+
+// Dual Directional Add-On Options
+#define PIN_DUAL_DIRECTIONAL_UP  -1
+#define PIN_DUAL_DIRECTIONAL_DOWN -1
+#define PIN_DUAL_DIRECTIONAL_LEFT -1
+#define PIN_DUAL_DIRECTIONAL_RIGHT -1
+#define DUAL_DIRECTIONAL_MODE DPAD_MODE_LEFT_ANALOG
 
 #define BUTTON_LAYOUT BUTTON_LAYOUT_STICK
 #define BUTTON_LAYOUT_RIGHT BUTTON_LAYOUT_VEWLIX

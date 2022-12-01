@@ -452,6 +452,12 @@ std::string setAddonOptions()
 	boardOptions.i2cAnalog1219Block = doc["i2cAnalog1219Block"];
 	boardOptions.i2cAnalog1219Speed = doc["i2cAnalog1219Speed"];
 	boardOptions.i2cAnalog1219Address = doc["i2cAnalog1219Address"];
+	boardOptions.pinDualDirDown 	= doc["dualDirDownPin"] == -1 ? 0xFF : doc["dualDirDownPin"];
+	boardOptions.pinDualDirUp 		= doc["dualDirUpPin"] == -1 ? 0xFF : doc["dualDirUpPin"];
+	boardOptions.pinDualDirLeft 	= doc["dualDirLeftPin"] == -1 ? 0xFF : doc["dualDirLeftPin"];
+	boardOptions.pinDualDirRight 	= doc["dualDirRightPin"] == -1 ? 0xFF : doc["dualDirRightPin"];
+	boardOptions.dualDirectionalMode = doc["dualDirMode"];
+
 	Storage::getInstance().setBoardOptions(boardOptions);
 
 	return serialize_json(doc);
@@ -477,6 +483,11 @@ std::string getAddonOptions()
 	doc["i2cAnalog1219Block"] = boardOptions.i2cAnalog1219Block;
 	doc["i2cAnalog1219Speed"] = boardOptions.i2cAnalog1219Speed;
 	doc["i2cAnalog1219Address"] = boardOptions.i2cAnalog1219Address;
+	doc["dualDirDownPin"] = boardOptions.pinDualDirDown == 0xFF ? -1 : boardOptions.pinDualDirDown;
+	doc["dualDirUpPin"] = boardOptions.pinDualDirUp == 0xFF ? -1 : boardOptions.pinDualDirUp;
+	doc["dualDirLeftPin"] = boardOptions.pinDualDirLeft == 0xFF ? -1 : boardOptions.pinDualDirLeft;
+	doc["dualDirRightPin"] = boardOptions.pinDualDirRight == 0xFF ? -1 : boardOptions.pinDualDirRight;
+	doc["dualDirMode"] = boardOptions.dualDirectionalMode;
 
 	Gamepad * gamepad = Storage::getInstance().GetGamepad();
 	auto usedPins = doc.createNestedArray("usedPins");
