@@ -153,7 +153,8 @@ app.get('/api/getAddonsOptions', (req, res) => {
 		dualDirDownPin: -1,
 		dualDirLeftPin: -1,
 		dualDirRightPin: -1,
-		dualDirMode: 0,
+		dualDirDpadMode: 0,
+		dualDirCombineMode: 0,
 		usedPins,
 	});
 });

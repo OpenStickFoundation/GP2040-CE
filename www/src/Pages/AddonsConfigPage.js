@@ -12,10 +12,17 @@ const I2C_BLOCKS = [
 	{ label: 'i2c1', value: 1 },
 ];
 
-const DPAD_MODES = [
-	{ label: 'D-pad', value: 0 },
+const DUAL_STICK_MODES = [
+	{ label: 'D-Pad', value: 0 },
 	{ label: 'Left Analog', value: 1 },
 	{ label: 'Right Analog', value: 2 },
+];
+
+const DUAL_COMBINE_MODES = [
+    { label: 'Mixed', value: 0 },
+	{ label: 'Gamepad', value: 1},
+	{ label: 'Dual Directional', value: 2 },
+	{ label: 'None', value: 3 }
 ];
 
 const schema = yup.object().shape({
@@ -35,7 +42,8 @@ const schema = yup.object().shape({
 	dualDirDownPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Down Pin'),
 	dualDirLeftPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Left Pin'),
 	dualDirRightPin: yup.number().required().min(-1).max(29).test('', '${originalValue} is already assigned!', (value) => usedPins.indexOf(value) === -1).label('Dual Directional Right Pin'),
-	dualDirMode : yup.number().required().oneOf(DPAD_MODES.map(o => o.value)).label('D-Pad Mode'), 
+	dualDirDpadMode : yup.number().required().oneOf(DUAL_STICK_MODES.map(o => o.value)).label('Dual Stick Mode'), 
+	dualDirCombineMode : yup.number().required().oneOf(DUAL_COMBINE_MODES.map(o => o.value)).label('Dual Combination Mode'),
 });
 
 const defaultValues = {
@@ -55,7 +63,8 @@ const defaultValues = {
 	dualDownPin: -1,
 	dualLeftPin: -1,
 	dualRightPin: -1,
-	dualDirMode: 0,
+	dualDirDpadMode: 0,
+	dualDirCombineMode: 0
 };
 
 const REVERSE_ACTION = [
@@ -408,10 +417,19 @@ export default function AddonsConfigPage() {
 							<Form.Group className="row mb-3">
 								<Form.Label>Dual Directional D-Pad Mode</Form.Label>
 								<div className="col-sm-3">
-									<Form.Select name="dualDirMode" className="form-select-sm" value={values.dualDirMode} onChange={handleChange} isInvalid={errors.dualDirMode}>
-										{DPAD_MODES.map((o, i) => <option key={`button-dualDirMode-option-${i}`} value={o.value}>{o.label}</option>)}
+									<Form.Select name="dualDirDpadMode" className="form-select-sm" value={values.dualDirDpadMode} onChange={handleChange} isInvalid={errors.dualDirDpadMode}>
+										{DUAL_STICK_MODES.map((o, i) => <option key={`button-dualDirDpadMode-option-${i}`} value={o.value}>{o.label}</option>)}
 									</Form.Select>
-									<Form.Control.Feedback type="invalid">{errors.dualDirMode}</Form.Control.Feedback>
+									<Form.Control.Feedback type="invalid">{errors.dualDirDpadMode}</Form.Control.Feedback>
+								</div>
+							</Form.Group>
+							<Form.Group className="row mb-3">
+								<Form.Label>Dual Directional Combination Mode</Form.Label>
+								<div className="col-sm-3">
+									<Form.Select name="dualDirCombineMode" className="form-select-sm" value={values.dualDirCombineMode} onChange={handleChange} isInvalid={errors.dualDirCombineMode}>
+										{DUAL_COMBINE_MODES.map((o, i) => <option key={`button-dualDirCombineMode-option-${i}`} value={o.value}>{o.label}</option>)}
+									</Form.Select>
+									<Form.Control.Feedback type="invalid">{errors.dualDirCombineMode}</Form.Control.Feedback>
 								</div>
 							</Form.Group>
 						</Col>

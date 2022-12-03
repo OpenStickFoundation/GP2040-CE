@@ -456,7 +456,8 @@ std::string setAddonOptions()
 	boardOptions.pinDualDirUp 		= doc["dualDirUpPin"] == -1 ? 0xFF : doc["dualDirUpPin"];
 	boardOptions.pinDualDirLeft 	= doc["dualDirLeftPin"] == -1 ? 0xFF : doc["dualDirLeftPin"];
 	boardOptions.pinDualDirRight 	= doc["dualDirRightPin"] == -1 ? 0xFF : doc["dualDirRightPin"];
-	boardOptions.dualDirectionalMode = doc["dualDirMode"];
+	boardOptions.dualDirDpadMode    = doc["dualDirDpadMode"];
+	boardOptions.dualDirCombineMode = doc["dualDirCombineMode"];
 
 	Storage::getInstance().setBoardOptions(boardOptions);
 
@@ -487,7 +488,8 @@ std::string getAddonOptions()
 	doc["dualDirUpPin"] = boardOptions.pinDualDirUp == 0xFF ? -1 : boardOptions.pinDualDirUp;
 	doc["dualDirLeftPin"] = boardOptions.pinDualDirLeft == 0xFF ? -1 : boardOptions.pinDualDirLeft;
 	doc["dualDirRightPin"] = boardOptions.pinDualDirRight == 0xFF ? -1 : boardOptions.pinDualDirRight;
-	doc["dualDirMode"] = boardOptions.dualDirectionalMode;
+	doc["dualDirDpadMode"] = boardOptions.dualDirDpadMode;
+	doc["dualDirCombineMode"] = boardOptions.dualDirCombineMode;
 
 	Gamepad * gamepad = Storage::getInstance().GetGamepad();
 	auto usedPins = doc.createNestedArray("usedPins");

@@ -5,6 +5,15 @@
 
 #include "GamepadEnums.h"
 
+// The available combinational methods
+enum DualDirectionalCombinationMode
+{
+    DUAL_COMBINE_MODE_MIXED = 0,
+	DUAL_COMBINE_MODE_GAMEPAD,
+    DUAL_COMBINE_MODE_DUAL,
+    DUAL_COMBINE_MODE_NONE
+};
+
 #ifndef PIN_DUAL_DIRECTIONAL_UP
 #define PIN_DUAL_DIRECTIONAL_UP -1
 #endif
@@ -21,18 +30,22 @@
 #define PIN_DUAL_DIRECTIONAL_RIGHT -1
 #endif
 
-#ifndef DUAL_DIRECTIONAL_MODE
-#define DUAL_DIRECTIONAL_MODE DPAD_MODE_LEFT_ANALOG
+#ifndef DUAL_DIRECTIONAL_STICK_MODE
+#define DUAL_DIRECTIONAL_STICK_MODE DPAD_MODE_DIGITAL
 #endif
 
-// Analog Module Name
+#ifndef DUAL_DIRECTIONAL_COMBINE_MODE
+#define DUAL_DIRECTIONAL_COMBINE_MODE DUAL_COMBINE_MODE_MIXED
+#endif
+
+// Dual Directional Module Name
 #define DualDirectionalName "DualDirectional"
 
 class DualDirectionalInput : public GPAddon {
 public:
 	virtual bool available();   // GPAddon available
-	virtual void setup();       // DualDirectional Setup
-	virtual void process();     // DualDirectional Process
+	virtual void setup();       // Dual Directional Setup
+	virtual void process();     // Dual Directional Process
     virtual std::string name() { return DualDirectionalName; }
 private:
     void debounce();

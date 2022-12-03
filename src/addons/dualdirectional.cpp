@@ -64,19 +64,54 @@ void DualDirectionalInput::process()
     // Debounce our directional pins
     debounce();
 
-    switch (boardOptions.dualDirectionalMode) {
+    // Dual Direction Mixed Combinational Logic
+    uint8_t combinedGamepad = gamepad->state.dpad;
+    uint8_t combinedDual = runSOCDCleaner(gamepad->options.socdMode, dpadState);
+    if ( boardOptions.dualDirCombineMode == DUAL_COMBINE_MODE_MIXED ) {
+        // Combined SOCD(Gamepad) and SOCD(Dual) and SOCD clean it
+        combinedGamepad = runSOCDCleaner(gamepad->options.socdMode, combinedGamepad | combinedDual);
+        combinedDual = combinedGamepad;
+    } else if ( boardOptions.dualDirCombineMode == DUAL_COMBINE_MODE_GAMEPAD ) {
+        if ( combinedGamepad != 0 && (combinedGamepad != combinedDual)) {
+            combinedDual = combinedGamepad;
+        }
+    } else if ( boardOptions.dualDirCombineMode == DUAL_COMBINE_MODE_DUAL ) {
+        if ( combinedDual != 0 && (combinedGamepad != combinedDual)) {
+            combinedGamepad = combinedDual;
+        }
+    } 
+    
+    // Modify Gamepad if the state was changed
+    if ( gamepad->state.dpad != combinedGamepad ) {
+        switch (gamepad->options.dpadMode)
+        {
+            case DPAD_MODE_LEFT_ANALOG:
+                gamepad->state.lx = dpadToAnalogX(combinedGamepad);
+                gamepad->state.ly = dpadToAnalogY(combinedGamepad);
+                break;
+            case DPAD_MODE_RIGHT_ANALOG:
+                gamepad->state.rx = dpadToAnalogX(combinedGamepad);
+                gamepad->state.ry = dpadToAnalogY(combinedGamepad);
+                break;
+            case DPAD_MODE_DIGITAL:
+                gamepad->state.dpad = combinedGamepad;
+                break;
+        }
+    }
+
+    // Modify the Dual Directional if the state is not correct
+    switch (boardOptions.dualDirDpadMode)
+    {
         case DPAD_MODE_LEFT_ANALOG:
-            gamepad->state.lx = dpadToAnalogX(dpadState);
-            gamepad->state.ly = dpadToAnalogY(dpadState);
+            gamepad->state.lx = dpadToAnalogX(combinedDual);
+            gamepad->state.ly = dpadToAnalogY(combinedDual);
             break;
         case DPAD_MODE_RIGHT_ANALOG:
-            gamepad->state.rx = dpadToAnalogX(dpadState);
-            gamepad->state.ry = dpadToAnalogY(dpadState);
+            gamepad->state.rx = dpadToAnalogX(combinedDual);
+            gamepad->state.ry = dpadToAnalogY(combinedDual);
             break;
         case DPAD_MODE_DIGITAL:
-            gamepad->state.dpad = dpadState;
-            break;
-        default:
+            gamepad->state.dpad = combinedDual;
             break;
     }
 }

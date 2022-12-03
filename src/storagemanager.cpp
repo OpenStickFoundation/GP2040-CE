@@ -104,7 +104,8 @@ void Storage::setDefaultBoardOptions()
 	boardOptions.i2cAnalog1219Block      = (I2C_ANALOG1219_BLOCK == i2c0) ? 0 : 1;
 	boardOptions.i2cAnalog1219Speed      = I2C_ANALOG1219_SPEED;
 	boardOptions.i2cAnalog1219Address    = I2C_ANALOG1219_ADDRESS;
-	boardOptions.dualDirectionalMode     = DUAL_DIRECTIONAL_MODE;
+	boardOptions.dualDirDpadMode         = DUAL_DIRECTIONAL_STICK_MODE;
+	boardOptions.dualDirCombineMode      = DUAL_DIRECTIONAL_COMBINE_MODE;
 	strncpy(boardOptions.boardVersion, GP2040VERSION, strlen(GP2040VERSION));
 	setBoardOptions(boardOptions);
 }
