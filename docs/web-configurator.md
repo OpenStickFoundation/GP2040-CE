@@ -58,6 +58,14 @@ If you have a setup with per-button RGB LEDs, they can be configured here.
 * `Flip Display` - Rotates the display 180°.
 * `Invert Display` - Inverts the pixel colors, effectively giving you a negative image when enabled.
 
+## Buzzer Speaker Configuration
+
+![GP2040 Configurator - Buzzer Speaker Configuration](assets/images/gpc-buzzer-config.png)
+
+* `Use buzzer` - Turns on/off the buzzer module.
+* `Buzzer Pin` - The GPIO pin used for the buzzer.
+* `Buzzer Volume` - Audio volume of buzzer. 0-100.
+
 ## DANGER ZONE
 
 ![GP2040 Configurator - Reset Settings](assets/images/gpc-reset-settings.png)
